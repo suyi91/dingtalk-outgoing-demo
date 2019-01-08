@@ -15,9 +15,10 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.post('/dingding', function(req, res) {
+app.post('/', function(req, res) {
   res.send('Got a POST request');
   console.log(req.headers);
+  console.log(req.body);
 });
 
 app.listen(3000, function () {
