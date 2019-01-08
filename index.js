@@ -15,6 +15,11 @@ app.post('/', function(req, res) {
   res.send(processor(req.body, req.headers.token));
 });
 
+app.use(function(err, req, res, next) {
+  console.log(err);
+  res.status(200).send('系统内部异常，请稍后再试')
+})
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });

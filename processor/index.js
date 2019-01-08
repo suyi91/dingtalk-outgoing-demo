@@ -34,7 +34,6 @@ module.exports = function processor(reqBody, givenToken) {
     return textGenerator(text);
   }
   if (String(conversationType) === '2') {
-    console.log(textGenerator(text, senderId))
     return textGenerator(text, senderId);
   }
   return null;
