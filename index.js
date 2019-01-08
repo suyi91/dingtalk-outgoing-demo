@@ -16,10 +16,9 @@ app.get('/', function (req, res) {
 app.post('/', function(req, res) {
   request.post(webHook, {
     headers:{
-      'content-type': 'application/json'
+      'content-type': 'application/json; charset=utf-8'
     },
-    encoding: 'UTF-8',
-    body: JSON.stringify(processor(req.body, req.headers.token)),
+    body: JSON.stringify(processor(req.body, req.header('token'))),
   }, function(err, callRes) {
     if (err || String(callRes.body.errcode) !== '0') {
       res.status(200).send('发生内部错误');
