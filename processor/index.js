@@ -30,11 +30,12 @@ module.exports = function processor(reqBody, givenToken) {
     senderId,
     text,
   } = reqBody;
+  const content = text.content;
   if (String(conversationType) === '1') {
-    return textGenerator(text);
+    return textGenerator(content);
   }
   if (String(conversationType) === '2') {
-    return textGenerator(text, senderId);
+    return textGenerator(content, senderId);
   }
   return null;
 }

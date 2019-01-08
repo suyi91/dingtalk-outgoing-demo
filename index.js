@@ -1,7 +1,9 @@
+const GLOBAL_CONFIG = require('./config');
 const express = require('express');
 const bodyParser = require('body-parser')
-require('./config');
 const processor = require('./processor');
+const request = require('request');
+const webHook = GLOBAL_CONFIG.webHook;
 
 const app = express();
 
@@ -12,13 +14,20 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function(req, res) {
-  res.send(processor(req.body, req.headers.token));
+  request.post(webHook, {
+    headers:{
+      'content-type': 'application/json'
+    },
+    encoding: 'UTF-8',
+    body: JSON.stringify(processor(req.body, req.headers.token)),
+  }, function(err, callRes) {
+    if (err || String(callRes.body.errcode) !== '0') {
+      res.status(200).send('发生内部错误');
+      return;
+    }
+    res.status(200).send('request success');
+  })
 });
-
-app.use(function(err, req, res, next) {
-  console.log(err);
-  res.status(200).send('系统内部异常，请稍后再试')
-})
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
