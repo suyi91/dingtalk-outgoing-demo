@@ -20,7 +20,7 @@ app.post('/', function(req, res) {
     },
     body: JSON.stringify(processor(req.body, req.header('token'))),
   }, function(err, callRes) {
-    if (err || String(callRes.body.errcode) !== '0') {
+    if (err) {
       res.status(200).send('发生内部错误');
       return;
     }
