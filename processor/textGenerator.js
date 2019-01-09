@@ -3,7 +3,7 @@ module.exports = (text, senderId) => {
   return {
     msgtype: 'text',
     text: {
-      content: senderId ? `@${senderId} ${text}` : text,
+      content: text,
     },
   };
 }
