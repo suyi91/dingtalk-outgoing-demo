@@ -20,22 +20,28 @@
 
 const token = require('../config').token;
 const textGenerator = require('./textGenerator');
+const linkGenerator = require('./linkGenerator');
+const mdGenerator = require('./mdGenerator');
+const textCuter = require('./textCuter');
+
+const EMPTY_RESPONSE = '我不能理解你的内容， \n你可以键入"前端"、"vue"等相关内容';
 
 module.exports = function processor(reqBody, givenToken) {
   if (givenToken !== token) {
     return null;
   }
-  const {
-    conversationType,
-    senderId,
-    text,
-  } = reqBody;
-  const content = text.content;
-  if (String(conversationType) === '1') {
-    return textGenerator(content);
+  const { text } = reqBody;
+  const content = text.content.trim();
+  const foundResult = textCuter(content);
+  if (!foundResult) {
+    return textGenerator(EMPTY_RESPONSE);
   }
-  if (String(conversationType) === '2') {
-    return textGenerator(content, senderId);
+  switch (foundResult.type) {
+    case 'link':
+      return linkGenerator(foundResult.content);
+    case 'markdown':
+      return mdGenerator(foundResult.content);
+    default:
+      return textGenerator(EMPTY_RESPONSE);
   }
-  return null;
 }

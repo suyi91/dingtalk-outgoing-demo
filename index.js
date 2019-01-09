@@ -5,6 +5,8 @@ const processor = require('./processor');
 const request = require('request');
 const webHook = GLOBAL_CONFIG.webHook;
 
+const nodejieba = require('nodejieba');
+
 const app = express();
 
 app.use(bodyParser.json());
