@@ -1,17 +1,9 @@
 module.exports = (text, senderId) => {
   console.log(text); // 记录传入的内容
-  const obj = {
+  return {
     msgtype: 'text',
     text: {
-      content: text,
+      content: senderId ? `@${senderId} ${text}` : text,
     },
-  }
-  if (senderId) {
-    obj.at = {
-      atDingtalkIds: [
-        senderId,
-      ],
-    }
-  }
-  return obj;
+  };
 }
