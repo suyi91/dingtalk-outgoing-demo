@@ -34,9 +34,9 @@ const LIB = {
 
 module.exports = text => {
   const words = nodejieba.cutHMM(text);
-  for (let word in text) {
+  for (let word in words) {
     for (let key in LIB) {
-      if (key.split('|').some(v => new RegExp(`${v}`, 'i').test(text))) {
+      if (key.split('|').some(v => new RegExp(`${v}`, 'i').test(word))) {
         return LIB[key];
       }
     }
