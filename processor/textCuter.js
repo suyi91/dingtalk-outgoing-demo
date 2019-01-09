@@ -5,12 +5,11 @@ const LIB = {
     type: 'markdown',
     content: {
       title: '前端相关参考内容',
-      text: `
-      - [MDN](https://developer.mozilla.org/zh-CN/)
-      - [Vue.js](https://cn.vuejs.org/)
-      - [ElementUI](http://element-cn.eleme.io)
-      - [React](https://reactjs.org/)
-      `,
+      text:
+        '- [MDN](https://developer.mozilla.org/zh-CN/) \n' +
+        '- [Vue.js](https://cn.vuejs.org/) \n' +
+        '- [ElementUI](http://element-cn.eleme.io) \n' +
+        '- [React](https://reactjs.org/)',
     },
   },
   'mdn': {
